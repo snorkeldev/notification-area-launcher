@@ -1,9 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Security.Policy;
-using System.Windows.Forms;
 
 namespace LauncherWinFormsCore
 {
@@ -91,7 +87,7 @@ namespace LauncherWinFormsCore
 
 				_contextMenu.Items.Add(new ToolStripSeparator());
 			}
-			
+
 			_contextMenu.Items.Add("Reload", null, ReloadMenuItem_Click);
 			_contextMenu.Items.Add("Exit", null, ExitMenuItem_Click);
 		}

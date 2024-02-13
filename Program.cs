@@ -1,6 +1,5 @@
 using System.Configuration;
 using System.Text.Json;
-using System.Windows.Forms;
 
 namespace LauncherWinFormsCore
 {
