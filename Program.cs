@@ -31,6 +31,16 @@ namespace LauncherWinFormsCore
 
 		public static JsonFile Data;
 
+		public static void SetNewFile(string path)
+		{
+			ConfigurationManager.AppSettings["paths"] = path;			
+		}
+
+		public static string GetFileDialogInitialDirectory()
+		{
+			return ConfigurationManager.AppSettings["paths"];
+		}
+
 		public static void LoadData()
 		{
 			var jsonFilePath = ConfigurationManager.AppSettings["paths"];

@@ -88,13 +88,37 @@ namespace LauncherWinFormsCore
 				_contextMenu.Items.Add(new ToolStripSeparator());
 			}
 
+			_contextMenu.Items.Add("Select file", null, SelectFileMenuItem_Click);
 			_contextMenu.Items.Add("Reload", null, ReloadMenuItem_Click);
 			_contextMenu.Items.Add("Exit", null, ExitMenuItem_Click);
+		}
+
+		private void SelectFileMenuItem_Click(object? sender, EventArgs e)
+		{
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+			openFileDialog.InitialDirectory = Program.GetFileDialogInitialDirectory();// "c:\\";
+			openFileDialog.Filter = "Json files (*.json)|*.json"; //|All files (*.*)|*.*";
+
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				string selectedFilePath = openFileDialog.FileName;
+				Program.SetNewFile(selectedFilePath);
+				Program.LoadData();
+				CreateContextMenu();
+
+				Console.WriteLine("Selected file: " + selectedFilePath);
+			}
+			else
+			{
+				// User canceled the dialog
+				Console.WriteLine("File selection canceled.");
+			}
 		}
 
 		private void ReloadMenuItem_Click(object? sender, EventArgs e)
 		{
 			Program.LoadData();
+			CreateContextMenu();
 		}
 
 		private void ExecuteTask(Program.JsonItem item)
