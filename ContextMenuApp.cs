@@ -14,11 +14,6 @@ namespace LauncherWinFormsCore
 
 			_notifyIcon = new NotifyIcon();
 
-			// icon hover text
-			_notifyIcon.Text = data.title;
-			_notifyIcon.Icon = Properties.Resources.Icon1;
-
-
 			_contextMenu = new ContextMenuStrip();
 			_notifyIcon.ContextMenuStrip = _contextMenu;
 			_notifyIcon.ContextMenuStrip.Opening += ContextMenuStrip_Opening;
@@ -44,6 +39,9 @@ namespace LauncherWinFormsCore
 		private async void CreateContextMenu()
 		{
 			var data = Program.Data;
+
+			_notifyIcon.Text = data.title;
+			_notifyIcon.Icon = Properties.Resources.Icon1;
 
 			_contextMenu.Items.Clear();
 

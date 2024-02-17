@@ -33,20 +33,29 @@ namespace LauncherWinFormsCore
 
 		public static void SetNewFile(string path)
 		{
-			ConfigurationManager.AppSettings["paths"] = path;			
+			Properties.Settings.Default.LastSelectedFilePath = path;
+			Properties.Settings.Default.Save();
 		}
 
 		public static string GetFileDialogInitialDirectory()
 		{
-			return ConfigurationManager.AppSettings["paths"];
+			return Properties.Settings.Default.LastSelectedFilePath;
 		}
 
 		public static void LoadData()
 		{
-			var jsonFilePath = ConfigurationManager.AppSettings["paths"];
-			var jsonData = File.ReadAllText(jsonFilePath);
-			var parsedData = JsonSerializer.Deserialize<JsonFile>(jsonData);
-			Data = parsedData;
+			var jsonFilePath = Properties.Settings.Default.LastSelectedFilePath;
+			try
+			{
+				var jsonData = File.ReadAllText(jsonFilePath);
+				var parsedData = JsonSerializer.Deserialize<JsonFile>(jsonData);
+				Data = parsedData;
+			}
+			catch
+			{
+				Data = new JsonFile();
+				Data.groups = new JsonGroup[0];
+			}
 		}
 
 		/// <summary>
