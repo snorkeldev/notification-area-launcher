@@ -50,11 +50,33 @@ namespace LauncherWinFormsCore
 				var jsonData = File.ReadAllText(jsonFilePath);
 				var parsedData = JsonSerializer.Deserialize<JsonFile>(jsonData);
 				Data = parsedData;
+				foreach (var g in Data.groups)
+				{
+					foreach(var e in g.items)
+					{
+						if (!string.IsNullOrEmpty(e.url))
+							e.url = ProcessPath(e.url);
+					}
+				}
 			}
-			catch
+			catch (Exception ex)
 			{
+				Console.WriteLine(ex.Message);
 				Data = new JsonFile();
 				Data.groups = new JsonGroup[0];
+			}
+		}
+
+		static string ProcessPath(string path)
+		{
+			try
+			{
+				return Environment.ExpandEnvironmentVariables(path);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				return path;
 			}
 		}
 
